@@ -1,3 +1,17 @@
+export function getColors(total: number):string[] {
+    const colors:string[] = [];
+    for(let i =0 ; i < total; i++){
+        colors.push(getRandomLightColor());
+    }
+    return colors
+}
+
+function getRandomLightColor(): string {
+    let r: number = getRandomInt(80,255);
+    let g: number = getRandomInt(80,255);
+    let b: number = getRandomInt(80,255);
+    return `rgb(${r}, ${g}, ${b})`;
+}
 
 function getRandomInt(min= 1 , max = 45) {
     min = Math.ceil(min);
@@ -5,8 +19,11 @@ function getRandomInt(min= 1 , max = 45) {
     return Math.floor(Math.random() * (max - min) + min); // The maximum is exclusive and the minimum is inclusive
 }
 
-export function makeNumber() {
+export type NumberInfo =  [number[], string[]];
 
+export function makeNumber(allColor:string[]):NumberInfo {
+
+    let colors: string[] = [];
     let numbers: number[] = [];
     let number: number = 0;
     do {
@@ -14,9 +31,16 @@ export function makeNumber() {
 
         if(!numbers.includes(number)){
             numbers.push(number);
+
         }
     }
     while(numbers.length < 7);
 
-    return numbers;
+    numbers.sort((a, b) => a-b);
+    numbers.map((r) => {
+        colors.push(allColor[r-1]);
+    });
+
+    return [numbers, colors];
 }
+

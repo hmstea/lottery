@@ -1,18 +1,24 @@
-import React, {ChangeEvent, MouseEventHandler, ReactNode,  useState} from 'react';
-import {makeNumber} from "./util";
+import React, {ChangeEvent, MouseEventHandler, ReactNode, useEffect, useState} from 'react';
+import {getColors, makeNumber} from "./util";
 import Game from "./Game";
 
 function App() {
+    const [allColor, setAllColor] = useState<string[]>([]);
     const [count, setCount]= useState<number>(5)
     const [games, setGames] = useState<ReactNode[]>();
+
+    useEffect(()=>{
+       setAllColor(getColors(45));
+    },[]);
+    if(allColor.length == 0) return <></>;
 
     const handler: MouseEventHandler = () => {
         const nodes:ReactNode[] = []
         let i:number = 0;
 
         do {
-            const numbers = makeNumber();
-            nodes.push(<Game key={i} game={i} numbers={numbers.sort((a, b)=> a-b)}/>);
+            const [numbers, colors] = makeNumber(allColor);
+            nodes.push(<Game key={i} game={i} colors={colors} numbers={numbers}/>);
             i++;
         }
         while(i < count);

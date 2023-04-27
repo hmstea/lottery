@@ -1,20 +1,11 @@
-import React, {ReactNode, useEffect, useState} from 'react';
 import Ball from "./Ball";
 
-
-function getRandomLightColor(): string {
-    let r: number = 150 + Math.round(100 * Math.random());
-    let g: number = 150 + Math.round(100 * Math.random());
-    let b: number = 150 + Math.round(100 * Math.random());
-    return `rgb(${r}, ${g}, ${b})`;
-}
-
-
-function Game({game, numbers}:{game:number; numbers:number[]}) {
-    console.log(numbers)
+function Game({game, numbers, colors}:{game:number; numbers:number[], colors:string[]}) {
     return (
         <section className='w-full h-full flex gap-1 p-2'>
-            {numbers.map(number=> <Ball key = {`${game}_${number}`} num={number} color={getRandomLightColor()}/>)}
+            {numbers.map((number, i)=>{
+              return  <Ball key = {`${game}_${number}`} num={number} color={colors[i]}/>;
+            })}
         </section>
     );
 }
