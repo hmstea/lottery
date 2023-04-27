@@ -7,13 +7,13 @@ export function getColors(total: number):string[] {
 }
 
 function getRandomLightColor(): string {
-    let r: number = getRandomInt(80,255);
-    let g: number = getRandomInt(80,255);
-    let b: number = getRandomInt(80,255);
+    let r: number = getRandomInt(80,256);
+    let g: number = getRandomInt(80,256);
+    let b: number = getRandomInt(80,256);
     return `rgb(${r}, ${g}, ${b})`;
 }
 
-function getRandomInt(min= 1 , max = 45) {
+function getRandomInt(min= 1 , max = 46) {
     min = Math.ceil(min);
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min) + min); // The maximum is exclusive and the minimum is inclusive
