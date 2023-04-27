@@ -1,15 +1,33 @@
 export function getColors(total: number):string[] {
     const colors:string[] = [];
     for(let i =0 ; i < total; i++){
-        colors.push(getRandomLightColor());
+        let r1=0,g1=0,b1=0;
+
+        if(i < 11) {
+            r1 = 240; g1=220; b1=50;
+        }
+        else if( i< 21) {
+            r1 = 50; g1=50; b1=225;
+        }
+        else if( i< 31) {
+            r1 = 240; g1=50; b1=50;
+        }
+        else if( i< 41) {
+            r1 = 122; g1=122; b1=122;
+        }
+        else if( i< 51) {
+            r1 = 50; g1=225; b1=50;
+        }
+
+        colors.push(getRandomLightColor(r1, g1, b1));
     }
     return colors
 }
 
-function getRandomLightColor(): string {
-    let r: number = getRandomInt(80,256);
-    let g: number = getRandomInt(80,256);
-    let b: number = getRandomInt(80,256);
+function getRandomLightColor(r1:number, g1:number, b1:number): string {
+    let r: number = r1 == 0 ? getRandomInt(80,256) : r1 - getRandomInt(0,10);
+    let g: number = g1 == 0 ? getRandomInt(80,256) : g1 - getRandomInt(0,10);
+    let b: number = b1 == 0 ? getRandomInt(80,256) : b1 - getRandomInt(0,10);
     return `rgb(${r}, ${g}, ${b})`;
 }
 
