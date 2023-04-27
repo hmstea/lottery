@@ -38,7 +38,7 @@ function App() {
         });
     }
     return (
-        <div className='max-w-fit min-w-[350px]'  >
+        <div className='max-w-fit min-w-[350px] m-auto'>
             <div className='flex justify-between mb-4 px-3 '>
                 {[1,2,3,4,5].map(i=>{
                     return <label key={i} className='font-bold text-xl'>
