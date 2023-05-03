@@ -1,7 +1,9 @@
+import {data} from "./api/data";
+
 export function getColors(total: number):string[] {
     const colors:string[] = [];
-    for(let i =0 ; i < total; i++){
-        let r1=0,g1=0,b1=0;
+    for(let i = 0 ; i < total; i++){
+        let r1= 0, g1= 0, b1= 0;
 
         if(i < 11) {
             r1 = 240; g1=220; b1=50;
@@ -31,7 +33,7 @@ function getRandomLightColor(r1:number, g1:number, b1:number): string {
     return `rgb(${r}, ${g}, ${b})`;
 }
 
-function getRandomInt(min= 1 , max = 46) {
+export function getRandomInt(min= 1 , max = 46) {
     min = Math.ceil(min);
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min) + min); // The maximum is exclusive and the minimum is inclusive
@@ -52,7 +54,7 @@ export function makeNumber(allColor:string[]):NumberInfo {
 
         }
     }
-    while(numbers.length < 7);
+    while(numbers.length < 6);
 
     numbers.sort((a, b) => a-b);
     numbers.map((r) => {
@@ -62,3 +64,39 @@ export function makeNumber(allColor:string[]):NumberInfo {
     return [numbers, colors];
 }
 
+
+export function makeNumber2(allColor:string[]):NumberInfo {
+
+    let colors: string[] = [];
+    let numbers: number[] = [];
+    let number: number = 0;
+    do {
+        number = getRandomInt2();
+
+        if(!numbers.includes(number)){
+            numbers.push(number);
+
+        }
+    }
+    while(numbers.length < 6);
+
+    numbers.sort((a, b) => a-b);
+    numbers.map((r) => {
+        colors.push(allColor[r-1]);
+    });
+
+    return [numbers, colors];
+}
+
+
+function getRandomInt2(){
+    let arr:number[] = [];
+    for(let i = 1 ; i < 46; i++){
+        const a = 1/45-(data.slice(0,12).filter((d)=>d.includes(i)).length / (12*6));
+        if(a > 0) {
+            for(let j =0 ;j < Math.round(a*1000); j++) arr.push(i);
+        }
+    }
+    arr.sort(()=> (getRandomInt(1,100) - getRandomInt(1,100)))
+    return arr[0];
+}

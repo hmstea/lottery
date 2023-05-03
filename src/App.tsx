@@ -1,10 +1,11 @@
-import React, {createElement, MouseEventHandler, ReactNode, useRef, useState} from 'react';
-import { makeNumber} from "./util";
+import React, {createElement, MouseEventHandler, ReactNode, useEffect, useRef, useState} from 'react';
+import {makeNumber, makeNumber2} from "./util";
 import Game from "./Game";
 import UseColors from "./useColors";
 import { toPng } from 'html-to-image';
 
 function App() {
+
     const el = useRef<HTMLDivElement>(null);
     const [count, setCount]= useState<number>(5)
     const [games, setGames] = useState<ReactNode[]>();
@@ -24,6 +25,20 @@ function App() {
         while(i < count);
         setGames(nodes);
     }
+
+    const handler2: MouseEventHandler = () => {
+        const nodes:ReactNode[] = []
+        let i:number = 0;
+
+        do {
+            const [numbers, colors] = makeNumber2(allColor);
+            nodes.push(<Game key={i} game={i} colors={colors} numbers={numbers}/>);
+            i++;
+        }
+        while(i < count);
+        setGames(nodes);
+    }
+
 
     const saveHandler: MouseEventHandler = () => {
         if(el.current == null) return;
@@ -59,7 +74,14 @@ function App() {
                         }
                     }}
                     value={count} />*/}
-                <button onClick={handler} className='rounded-md px-4 py-2 border-0 bg-red-700 text-pink-100'>RUN</button>
+            </div>
+            <div className='flex justify-between mb-4 px-3 '>
+                <button onClick={handler}
+                        className='rounded-md px-4 py-2 text-center border-0 bg-red-700 text-pink-100'>RUN 1
+                </button>
+                <button onClick={handler2}
+                        className='rounded-md px-4 py-2 text-center border-0 bg-red-700 text-pink-100'>RUN 2
+                </button>
             </div>
             <div className='flex-col p-0' ref={el}>
                 {games}
