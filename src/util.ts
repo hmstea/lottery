@@ -98,5 +98,46 @@ function getRandomInt2(){
         }
     }
     arr.sort(()=> (getRandomInt(1,100) - getRandomInt(1,100)))
+
+    return arr[0];
+}
+
+
+
+
+export function makeNumber3(allColor:string[]):NumberInfo {
+
+    let colors: string[] = [];
+    let numbers: number[] = [];
+    let number: number = 0;
+    do {
+        number = getRandomInt3();
+
+        if(!numbers.includes(number)){
+            numbers.push(number);
+
+        }
+    }
+    while(numbers.length < 6);
+
+    numbers.sort((a, b) => a-b);
+    numbers.map((r) => {
+        colors.push(allColor[r-1]);
+    });
+
+    return [numbers, colors];
+}
+
+
+function getRandomInt3(){
+    let arr:number[] = [];
+    for(let i = 1 ; i < 46; i++){
+        const a = 1/45+(data.slice(0,12).filter((d)=>d.includes(i)).length / (12*6));
+        if(a > 0) {
+            for(let j =0 ;j < Math.round(a*1000); j++) arr.push(i);
+        }
+    }
+    arr.sort(()=> (getRandomInt(1,100) - getRandomInt(1,100)))
+
     return arr[0];
 }

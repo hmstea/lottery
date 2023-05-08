@@ -1,5 +1,5 @@
-import React, {createElement, MouseEventHandler, ReactNode, useEffect, useRef, useState} from 'react';
-import {makeNumber, makeNumber2} from "./util";
+import React, { MouseEventHandler, ReactNode, useRef, useState} from 'react';
+import {makeNumber, makeNumber2, makeNumber3} from "./util";
 import Game from "./Game";
 import UseColors from "./useColors";
 import { toPng } from 'html-to-image';
@@ -19,6 +19,7 @@ function App() {
 
         do {
             const [numbers, colors] = makeNumber(allColor);
+
             nodes.push(<Game key={i} game={i} colors={colors} numbers={numbers}/>);
             i++;
         }
@@ -31,7 +32,9 @@ function App() {
         let i:number = 0;
 
         do {
-            const [numbers, colors] = makeNumber2(allColor);
+
+            const [numbers, colors] = i > 2 ? makeNumber2(allColor) : (i=== 4 ? makeNumber(allColor) : makeNumber3(allColor));
+
             nodes.push(<Game key={i} game={i} colors={colors} numbers={numbers}/>);
             i++;
         }
